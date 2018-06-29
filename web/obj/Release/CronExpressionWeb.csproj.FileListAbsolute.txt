@@ -1,0 +1,6 @@
+I:\Demo\TaskManagerPub\Branch\CronExpressionWeb\bin\CronExpressionWeb.dll
+I:\Demo\TaskManagerPub\Branch\CronExpressionWeb\bin\CronExpressionWeb.pdb
+I:\Demo\TaskManagerPub\Branch\CronExpressionWeb\bin\Quartz.dll
+I:\Demo\TaskManagerPub\Branch\CronExpressionWeb\obj\Release\CronExpressionWeb.dll
+I:\Demo\TaskManagerPub\Branch\CronExpressionWeb\obj\Release\CronExpressionWeb.pdb
+I:\Demo\TaskManagerPub\Branch\CronExpressionWeb\bin\Common.Logging.dll

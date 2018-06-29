@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="false" scanPeriod="60 seconds">
+	<property name="CHARSET" value="utf-8" /><!-- 字符集 -->
+	<property name="LOG_HOME" value="log" /><!-- log目录 -->
+	<property name="BACKUP" value="${LOG_HOME}/BACKUP/%d{yyyy-MM-dd}" /><!-- 日志备份目录 -->
+	<property name="PATTERN_DEF" value="[%d{yyyy-MM-dd HH:mm:ss SSS}] [%-5p] [%t] [%c{0}:%L] - %m%n" /><!-- 日志输出格式, %c{0} 表示打印logger名，若logger名是一个类路径，则打印最后一个.右边的部分 -->
+
+	<!-- 控制台日志器 -->
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${PATTERN_DEF}</pattern>
+		</encoder>
+		<target>System.out</target><!-- System.out|System.err -->
+	</appender>
+
+    <!-- 全量异常日志器  -->
+    <appender name="exception"
+      class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>${LOG_HOME}/exception.log</file>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+         <fileNamePattern>${BACKUP}/exception_%d{yyyy-MM-dd}-%i.log.zip</fileNamePattern>
+         <maxHistory>15</maxHistory>
+         <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+            <maxFileSize>64MB</maxFileSize>
+         </timeBasedFileNamingAndTriggeringPolicy>
+      </rollingPolicy>
+      <encoder>
+         <charset>${CHARSET}</charset>
+         <pattern>${PATTERN_DEF}</pattern>
+      </encoder>
+      <filter class="ch.qos.logback.classic.filter.LevelFilter">
+         <level>ERROR</level>
+         <onMatch>ACCEPT</onMatch>
+         <onMismatch>DENY</onMismatch>
+      </filter>
+    </appender>
+   
+	<!-- 应用程序日志器 -->
+	<appender name="app"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<prudent>false</prudent> <!-- 如果是 true，日志会被安全的写入文件（多线程同步），但效率低，默认是 false。 -->
+		<file>${LOG_HOME}/log.log</file> <!-- 可以是相对目录，也可以是绝对目录，如果上级目录不存在会自动创建 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${BACKUP}/log_%d{yyyy-MM-dd}-%i.log.zip
+			</fileNamePattern>
+			<maxHistory>15</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>64MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<charset>${CHARSET}</charset>
+			<pattern>${PATTERN_DEF}</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- 其他日志器 -->
+	<appender name="other"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<prudent>false</prudent> <!-- 如果是 true，日志会被安全的写入文件（多线程同步），但效率低，默认是 false。 -->
+		<file>${LOG_HOME}/other.log</file> <!-- 可以是相对目录，也可以是绝对目录，如果上级目录不存在会自动创建 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${BACKUP}/other_%d{yyyy-MM-dd}-%i.log.zip
+			</fileNamePattern>
+			<maxHistory>15</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>64MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<charset>${CHARSET}</charset>
+			<pattern>${PATTERN_DEF}</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- 主程序日志 -->
+	<logger name="exp.github" level="debug" additivity="true">
+		<appender-ref ref="app" />
+	</logger>
+	
+	<!-- 经验库日志 -->
+    <logger name="exp.libs.utils.io" level="debug" additivity="false" />
+    <logger name="exp.libs.utils.format.JsonUtils" level="debug" additivity="false" />
+    <logger name="exp.libs" level="info" additivity="false">
+        <appender-ref ref="other" />
+        <appender-ref ref="exception" />
+    </logger>
+	
+	<!-- 第三方日志 -->
+	<logger name="org.apache" level="error" additivity="true" />
+	<logger name="org.logicalcobwebs" level="error" additivity="true" />
+	
+	<!-- 其他日志 -->
+	<logger name="OTHER" level="info" additivity="false">
+		<appender-ref ref="other" />
+		<appender-ref ref="exception" />
+	</logger>
+	
+	<!-- 根日志 -->
+	<root level="debug">
+		<appender-ref ref="console" />
+		<appender-ref ref="exception" />
+	</root>
+</configuration>
