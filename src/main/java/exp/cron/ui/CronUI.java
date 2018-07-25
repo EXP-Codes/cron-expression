@@ -24,8 +24,22 @@ public class CronUI extends MainWindow {
 	
 	private Cron cron;
 	
+	private static volatile CronUI instance;
+	
 	public CronUI() {
 		super("Cron表达式生成器", WIDTH, HEIGHT);
+	}
+	
+	public static CronUI getInstn() {
+		if(instance == null) {
+			synchronized (CronUI.class) {
+				if(instance == null) {
+					instance = new CronUI();
+					instance.setMini(TO_MINI);
+				}
+			}
+		}
+		return instance;
 	}
 	
 	@Override
