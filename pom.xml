@@ -6,7 +6,7 @@
     <!--项目基本信息(必填)-->
     <groupId>exp.cron</groupId>
     <artifactId>cron-expression</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
     <name>cron表达式配置工具</name>
@@ -148,6 +148,17 @@
                                 <copy todir="${release.dir}/conf">
                                     <fileset dir="conf" />
                                 </copy>
+                                
+                                <echo>拷贝web页面文件</echo>
+                                <copy todir="${release.dir}/web/Cron">
+                                    <fileset dir="web/Cron" />
+                                </copy>
+                                
+                                <echo>拷贝界面启动文件</echo>
+                                <copy file="./index.html" 
+                                    tofile="${release.dir}/cron-ui-bs.html" />
+                                <copy file="./doc/cron-ui-cs.exe" 
+                                    tofile="${release.dir}/cron-ui-cs.exe" />
                             </target>
                         </configuration>
                     </execution>

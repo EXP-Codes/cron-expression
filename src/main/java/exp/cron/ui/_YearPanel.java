@@ -16,10 +16,10 @@ public class _YearPanel extends __TimePanel {
 	/** serialVersionUID */
 	private static final long serialVersionUID = 6055405583848024179L;
 
-	private final static int YEAR = 43;	// 最多显示往后40年（理论cron最大的年份是2099年）
+	private final static int YEAR = 76;	// 最多显示往后76年（理论cron最大的年份是2099年）
 	
 	protected _YearPanel(Cron cron, String name) {
-		super(cron, name, 4);
+		super(cron, name, 7);
 	}
 	
 	@Override

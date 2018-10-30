@@ -95,7 +95,7 @@ public class _WeekPanel extends __TimePanel {
 	protected JPanel getEveryPanel() {
 		return SwingUtils.getHFlowPanel(FlowLayout.LEFT, 
 				everyBtn, 
-				new JLabel("      （注：星期1=周日、星期2=周一、星期3=周二、星期4=周三、星期5=周四、星期6=周五、星期7=周六）"));
+				new JLabel("（注：星期1=周日、星期2=周一、星期3=周二、星期4=周三、星期5=周四、星期6=周五、星期7=周六）"));
 	}
 	
 	@Override

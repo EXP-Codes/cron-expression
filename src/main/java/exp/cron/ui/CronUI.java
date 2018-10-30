@@ -27,9 +27,9 @@ public class CronUI extends MainWindow {
 	protected final static String SECOND = "秒", MINUTE = "分", HOUR = "时", 
 			DAY = "日期", MONTH = "月份", WEEK = "星期", YEAR = "年份";
 	
-	private final static int WIDTH = 800;
+	private final static int WIDTH = 920;
 	
-	private final static int HEIGHT = 680;
+	private final static int HEIGHT = 740;
 	
 	private Cron cron;
 	
@@ -91,7 +91,7 @@ public class CronUI extends MainWindow {
 		tfWeek.setEditable(false);
 		tfYear.setEditable(false);
 		
-		this.copyBtn = new JButton("复制");
+		this.copyBtn = new JButton("复 制 cron 表 达 式");
 		copyBtn.setForeground(Color.BLACK);
 		BeautyEyeUtils.setButtonStyle(NormalColor.lightBlue, copyBtn);
 	}
@@ -99,8 +99,8 @@ public class CronUI extends MainWindow {
 	@Override
 	protected void setComponentsLayout(JPanel rootPanel) {
 		rootPanel.add(toContralPanel(), BorderLayout.NORTH);
-//		rootPanel.add(toSchedulePanel(), BorderLayout.CENTER);
-//		rootPanel.add(createBtn, BorderLayout.SOUTH);
+		rootPanel.add(toExpressionPanel(), BorderLayout.CENTER);
+		rootPanel.add(copyBtn, BorderLayout.SOUTH);
 	}
 	
 	private JPanel toContralPanel() {
@@ -114,10 +114,8 @@ public class CronUI extends MainWindow {
 				tabbedPanel.add(new _WeekPanel(cron, "星期"), WEEK);
 				tabbedPanel.add(new _YearPanel(cron, "年"), YEAR);
 			}
-			SwingUtils.addBorder(tabbedPanel, "Contral");
+			SwingUtils.addBorder(tabbedPanel, "Control");
 			panel.add(tabbedPanel, BorderLayout.CENTER);
-			
-			panel.add(toExpressionPanel(), BorderLayout.SOUTH);
 		}
 		return panel;
 	}
@@ -139,8 +137,8 @@ public class CronUI extends MainWindow {
 			
 			panel.add(new JLabel(" "), BorderLayout.CENTER);
 			
-			panel.add(SwingUtils.getWEBorderPanel(
-					new JLabel("Cron表达式 ： "), tfExpression, copyBtn
+			panel.add(SwingUtils.getWBorderPanel(
+					tfExpression, new JLabel("Cron表达式 ： ")
 			), BorderLayout.SOUTH);
 		}
 		SwingUtils.addBorder(panel, "Expression");

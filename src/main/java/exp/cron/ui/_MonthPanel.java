@@ -16,7 +16,7 @@ public class _MonthPanel extends __TimePanel {
 	private static final long serialVersionUID = -7775377611552787648L;
 	
 	protected _MonthPanel(Cron cron, String name) {
-		super(cron, name, 2);
+		super(cron, name, 3);
 	}
 	
 	@Override

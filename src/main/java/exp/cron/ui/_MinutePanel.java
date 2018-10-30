@@ -18,7 +18,7 @@ public class _MinutePanel extends __TimePanel {
 	private final static int MINUTE = 60;
 	
 	protected _MinutePanel(Cron cron, String name) {
-		super(cron, name, 4);
+		super(cron, name, 6);
 	}
 	
 	@Override

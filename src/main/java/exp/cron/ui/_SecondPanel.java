@@ -18,7 +18,7 @@ public class _SecondPanel extends __TimePanel {
 	private final static int SECOND = 60;
 	
 	protected _SecondPanel(Cron cron, String name) {
-		super(cron, name, 4);
+		super(cron, name, 6);
 	}
 
 	@Override
