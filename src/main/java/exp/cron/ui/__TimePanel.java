@@ -32,6 +32,8 @@ abstract class __TimePanel extends JPanel {
 	
 	protected String name;
 	
+	protected ButtonGroup btnGroup;
+	
 	protected JRadioButton everyBtn;
 	
 	protected JRadioButton rangeBtn;
@@ -64,33 +66,40 @@ abstract class __TimePanel extends JPanel {
 		this.tfTo = new JTextField(5);
 		this.tfBegin = new JTextField(5);
 		this.tfStep = new JTextField(5);
-		initTips();
 		
 		this.everyBtn = new JRadioButton(StrUtils.concat("每", name, "触发 (*)"));
 		this.rangeBtn = new JRadioButton("范围触发 (x-y)");
 		this.stepBtn = new JRadioButton("周期触发 (x/y)");
 		this.seqBtn = new JRadioButton("定点触发 (a,b,c,...)");
-		ButtonGroup bg = new ButtonGroup();
-		bg.add(everyBtn);
-		bg.add(rangeBtn);
-		bg.add(stepBtn);
-		bg.add(seqBtn);
+		this.btnGroup = new ButtonGroup();
+		btnGroup.add(everyBtn);
+		btnGroup.add(rangeBtn);
+		btnGroup.add(stepBtn);
+		btnGroup.add(seqBtn);
+		
+		initComponents();
+		initTips();
 		
 		this.seqCBG = initSequence();
 		return SwingUtils.getVFlowPanel(
 				getEveryPanel(),  
 				getRangePanel(), 
 				getStepPanel(), 
-				getSequencePanel(),
+				getExtPanel(),	// 扩展面板
 				
+				getSequencePanel(),
 				SwingUtils.addBorder(
 						seqCBG.toGridPanel(seqRow), 
 						StrUtils.concat("[", name, "] 列表"))
 		);
 	}
 	
+	protected void initComponents() {
+		// Undo
+	}
+	
 	protected abstract void initTips();
-
+	
 	protected JPanel getEveryPanel() {
 		return SwingUtils.addPanel(everyBtn);
 	}
@@ -113,6 +122,10 @@ abstract class __TimePanel extends JPanel {
 						tfStep, new JLabel(StrUtils.concat(" ", name, "触发"))
 				)
 		);
+	}
+	
+	protected JPanel getExtPanel() {
+		return new JPanel();
 	}
 	
 	protected JPanel getSequencePanel() {

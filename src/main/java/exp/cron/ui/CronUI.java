@@ -29,7 +29,7 @@ public class CronUI extends MainWindow {
 	
 	private final static int WIDTH = 800;
 	
-	private final static int HEIGHT = 580;
+	private final static int HEIGHT = 680;
 	
 	private Cron cron;
 	
