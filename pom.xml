@@ -6,13 +6,13 @@
     <!--项目基本信息(必填)-->
     <groupId>exp.cron</groupId>
     <artifactId>cron-expression</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>项目名称(可选)</name>
-    <description>项目描述(可选)</description>
-    <url>项目SVN路径(可选)</url>
-    <inceptionYear>工程的初始时间(可选)</inceptionYear>
+    <name>cron表达式配置工具</name>
+    <description>通过BS/CS界面配置合法的cron表达式</description>
+    <url>https://github.com/lyy289065406/cron-expression</url>
+    <inceptionYear>2018-10-30</inceptionYear>
 
     <!--项目的问题管理系统(可选)-->
     <issueManagement>
@@ -29,9 +29,9 @@
     <!-- 软件配置管理 -->
     <scm>
         <!-- 项目SVN主干目录（需保证目录已存在） -->
-        <connection>scm:svn:http://127.0.0.1:81/svn/release/???/trunk</connection>
-        <developerConnection>scm:svn:http://127.0.0.1:81/svn/release/???/trunk</developerConnection>
-        <url>scm:svn:http://127.0.0.1:81/svn/release/???/trunk</url>
+        <connection>scm:svn:https://github.com/lyy289065406/cron-expression/trunk</connection>
+        <developerConnection>scm:svn:https://github.com/lyy289065406/cron-expression/trunk</developerConnection>
+        <url>scm:svn:https://github.com/lyy289065406/cron-expression/trunk</url>
     </scm>
 
     <!-- 变量定义 -->
@@ -39,8 +39,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <release.dir>${project.build.directory}/${project.artifactId}-${project.version}</release.dir>
         <jdk.version>1.6</jdk.version>
-        <explibs.version>1.0-SNAPSHOT</explibs.version>
-        <mrp.plugin.version>1.0-SNAPSHOT</mrp.plugin.version>
+        <explibs.version>1.1-SNAPSHOT</explibs.version>
+        <mrp.plugin.version>1.0</mrp.plugin.version>
     </properties>
 
     <!-- 项目依赖 -->
@@ -49,214 +49,8 @@
         <!-- 经验库 -->
     	<dependency>
 		  <groupId>exp.libs</groupId>
-		  <artifactId>exp-libs</artifactId>
+		  <artifactId>exp-libs-simple</artifactId>
 		  <version>${explibs.version}</version>
-		  <exclusions>
-		    <exclusion>
-	          <groupId>mysql</groupId>
-		  	  <artifactId>mysql-connector-java</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>com.oracle</groupId>
-		  	  <artifactId>ojdbc</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>redis.clients</groupId>
-		  	  <artifactId>jedis</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>org.eclipse</groupId>
-          	  <artifactId>draw2d</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>org.jgraph</groupId>
-		  	  <artifactId>jGraph</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>com.realpersist</groupId>
-		  	  <artifactId>schemaeditor</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>exp.libs</groupId>
-          	  <artifactId>jvm-agent</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>net.sf.ehcache</groupId>
-		      <artifactId>ehcache</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>exp.libs</groupId>
-              <artifactId>jep</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>jsch</groupId>
-	          <artifactId>jsch</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>javax.activation</groupId>
-	          <artifactId>activation</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>javax.mail</groupId>
-		      <artifactId>mail</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>org.apache.activemq</groupId>
-              <artifactId>activemq-all</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>org.apache.axis2</groupId>
-	          <artifactId>axis2-adb</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>org.apache.ws.xmlschema</groupId>
-	          <artifactId>xmlschema-core</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>org.apache.axis2</groupId>
-	          <artifactId>axis2-transport-http</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>org.apache.axis2</groupId>
-	          <artifactId>axis2-transport-local</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>org.apache.cxf</groupId>
-	          <artifactId>cxf-rt-frontend-jaxws</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>org.apache.cxf</groupId>
-	          <artifactId>cxf-rt-transports-http</artifactId>
-	        </exclusion>
-	        <exclusion>
-              <groupId>org.apache.cxf</groupId>
-              <artifactId>cxf-rt-transports-http-jetty</artifactId>
-            </exclusion>
-	        <exclusion>
-	          <groupId>net.webservices.client</groupId>
-	          <artifactId>wsdl4j</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>net.webservices.client</groupId>
-	          <artifactId>jabref</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>net.webservices.client</groupId>
-	          <artifactId>soapui</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>net.webservices.client</groupId>
-	          <artifactId>soapui-xmlbeans</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>org.seleniumhq.selenium</groupId>
-	          <artifactId>selenium-java</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>com.codeborne</groupId>
-	          <artifactId>phantomjsdriver</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>org.seleniumhq.selenium</groupId>
-	          <artifactId>selenium-chrome-driver</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>org.seleniumhq.selenium</groupId>
-	          <artifactId>selenium-htmlunit-driver</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>com.sun.media</groupId>
-		  	  <artifactId>jai-imageio</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>org.tensorflow</groupId>
-	          <artifactId>tensorflow</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>org.tensorflow</groupId>
-	          <artifactId>libtensorflow</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>org.tensorflow</groupId>
-	          <artifactId>libtensorflow_jni</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>sun.misc</groupId>
-		  	  <artifactId>base64</artifactId>
-	        </exclusion>
-	        <exclusion>
-	          <groupId>org.java-websocket</groupId>
-		      <artifactId>Java-WebSocket</artifactId>
-	        </exclusion>
-	        <exclusion>
-              <groupId>net.sf.json-lib</groupId>
-              <artifactId>json-lib</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>org.codehaus.jackson</groupId>
-              <artifactId>jackson-xc</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>org.codehaus.jackson</groupId>
-              <artifactId>jackson-smile</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>org.codehaus.jackson</groupId>
-              <artifactId>jackson-mrbean</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>org.codehaus.jackson</groupId>
-              <artifactId>jackson-jaxrs</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>org.codehaus.jackson</groupId>
-              <artifactId>jackson-core-lgpl</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>org.codehaus.jackson</groupId>
-              <artifactId>jackson-mapper-lgpl</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>org.codehaus.jackson</groupId>
-              <artifactId>jackson-mapper-lgpl</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>org.codehaus.jackson</groupId>
-              <artifactId>jackson-mapper-lgpl</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>org.codehaus.janino</groupId>
-              <artifactId>janino</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>org.codehaus.janino</groupId>
-              <artifactId>commons-compiler</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>commons-httpclient</groupId>
-              <artifactId>commons-httpclient</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>commons-net</groupId>
-              <artifactId>commons-net</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>org.apache.commons</groupId>
-              <artifactId>commons-compress</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>org.apache.xmlbeans</groupId>
-              <artifactId>xmlbeans</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>org.bouncycastle</groupId>
-              <artifactId>bcprov-jdk15on</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>com.google.zxing</groupId>
-              <artifactId>javase</artifactId>
-            </exclusion>
-	      </exclusions>
 		</dependency>
 		
 		<!-- logback -->
@@ -312,7 +106,7 @@
                 <version>2.3.2</version>
                 <configuration>
                     <!-- 项目的SVN基线目录（需保证目录已存在） -->
-                    <tagBase>http://127.0.0.1:81/svn/release/???/tags</tagBase>
+                    <tagBase>https://github.com/lyy289065406/cron-expression/tags</tagBase>
                 </configuration>
             </plugin>
 
@@ -336,129 +130,6 @@
                 </configuration>
             </plugin>
             
-            <!-- 混淆打包插件 -->
-            <plugin>
-                <groupId>com.github.wvengen</groupId>
-                <artifactId>proguard-maven-plugin</artifactId>
-                <version>2.0.7</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>    <!-- 触发混淆打包的maven周期 -->
-                        <goals>
-                            <goal>proguard</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <!-- attach 的作用是在 install/deploy 时, 将生成的 pg 文件也安装/部署 -->
-                    <attach>false</attach>
-                    <attachArtifactClassifier>pg</attachArtifactClassifier>
-                    
-                    <!-- 指定混淆处理所需要的库文件 -->
-                    <libs>
-                        <lib>${java.home}/lib/rt.jar</lib> <!-- 运行时库rt是必须的 -->
-                    </libs>
-                    
-                    <!-- 指定要做混淆处理的 应用程序jar、war、ear，或目录 -->
-                    <injar></injar>
-                    
-                    <!-- 指定混淆处理完后要输出的jar、war、ear，及其目录名称 -->
-                    <outjar>${project.build.finalName}-pg</outjar>
-                    
-                    <!-- 混淆规则: 详细配置方式参考 ProGuard 官方文档 -->
-                    <options>
-                        <option>-ignorewarnings</option>         <!-- 忽略混淆警告 -->
-                        <!-- option>-dontobfuscate</option -->    <!-- 不混淆输入的类文件 -->
-                        <option>-dontshrink</option>               <!-- 不压缩输入的类文件 -->
-                        <option>-dontoptimize</option>             <!-- 不做代码优化 -->
-                        <option>-dontskipnonpubliclibraryclasses</option>        <!-- 不跳过私有依赖的类库 -->
-                        <option>-dontskipnonpubliclibraryclassmembers</option>    <!-- 不跳过私有依赖的类库成员 -->
-                        <!-- option>-overloadaggressively</option -->                <!-- 混淆时应用侵入式重载 -->
-                        <!-- option>-obfuscationdictionary {filename}</option -->    <!-- 使用给定文件中的关键字作为要混淆方法的名称 -->
-                        <!-- option>-applymapping {filename}</option -->            <!-- 重用映射增加混淆 -->
-                        <!-- option>-useuniqueclassmembernames</option -->            <!-- 确定统一的混淆类的成员名称来增加混淆 -->
-                        <!-- option>-dontusemixedcaseclassnames</option -->            <!-- 混淆时不会产生形形色色的类名 -->
-                        <!-- option>-renamesourcefileattribute {string}</option -->    <!-- 设置源文件中给定的字符串常量 -->
-                        <!-- option>-flattenpackagehierarchy {package_name}</option -->    <!-- 重新包装所有重命名的包并放在给定的单一包中 -->
-                        <!-- option>-repackageclass {package_name}</option -->            <!-- 重新包装所有重命名的类文件中放在给定的单一包中 -->
-            
-            
-                        <!--平行包结构（重构包层次），所有混淆的代码放在 pg 包下 -->
-                        <!-- 最好不要随便放, 若有多个项目混淆，不同jar的混淆类可能重名 -->
-                        <!-- 建议为{project.root.package}.pg （不存在此变量，此处仅为了说明） -->
-                        <option>-repackageclasses exp.cron.pg</option>
-            
-                        <!-- 保留[源码] --><!-- 按实际项目切换 -->
-                        <!-- option>-keepattributes SourceFile</option -->
-                        
-                        <!-- 保留[行号] --><!-- 按实际项目切换 -->
-                        <option>-keepattributes LineNumberTable</option>
-                        
-                        <!-- 保留[注释] --><!-- 按实际项目切换 -->
-                        <!-- option>-keepattributes *Annotation*</option -->
-                        
-                        <!-- 保留[注解] --><!-- 按实际项目切换 -->
-                        <!-- option>-keepattributes Signature</option -->
-                        
-                        <!-- 保持[入口类]不变 -->
-                        <!-- 按实际项目修正 -->
-                        <option>-keep class 
-                            exp.cron.Version,
-                            exp.cron.Main
-                        </option>
-                        
-                        <!-- 保持[Bean类]不变（若框架对 Bean中的内容做了反射处理，则必须保持不变） -->
-                        <!-- 按实际项目修正 -->
-                        <option>-keep class exp.cron.bean.** { *;}</option>
-                        
-                        <!-- 保持[所有入口方法]不变 -->
-                        <!-- 固定不变 -->
-                        <option>-keepclasseswithmembers public class * { 
-                                    public static void main(java.lang.String[]);
-                                }
-                        </option>
-                        
-                        <!-- 保持[对外API的类名和方法名]不变 -->
-                        <!-- 按实际项目修正 -->
-                        <option>-keep class exp.cron.api.** { *;}</option>
-                        
-                        <!-- 保持[所有本地化方法]不变 -->
-                        <!-- 固定不变 -->
-                        <option>-keepclasseswithmembernames class * {
-                                    native &lt;methods&gt;;
-                                }
-                        </option>
-                        
-                        <!-- 保持[所有类成员变量]不变 -->
-                        <!-- 按实际项目修正 -->
-                        <!-- option>-keepclassmembers class * {
-                                    &lt;fields&gt;;
-                                }
-                        </option -->
-                        
-                        <!-- 保持[所有枚举类必须的方法]不变 -->
-                        <!-- 固定不变 -->
-                        <option>-keepclassmembers class * extends java.lang.Enum {
-                                    public static **[] values();
-                                    public static ** valueOf(java.lang.String);
-                                }
-                        </option>
-                        
-                        <!-- 保持[所有序列化接口]不变（若项目中不使用序列化，也可注释） -->
-                        <!-- 固定不变 -->
-                        <option>-keepclassmembers class * implements java.io.Serializable {
-                                    static final long serialVersionUID;
-                                    static final java.io.ObjectStreamField[] serialPersistentFields;
-                                    private void writeObject(java.io.ObjectOutputStream);
-                                    private void readObject(java.io.ObjectInputStream);
-                                    java.lang.Object writeReplace();
-                                    java.lang.Object readResolve();
-                                }
-                        </option>
-                    </options>
-                </configuration>
-            </plugin>
-
             <!-- Ant插件：项目部署文件复制 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -473,23 +144,9 @@
                         </goals>
                         <configuration>
                             <target>
-                                <echo>拷贝数据库脚本</echo>
-                                <copy todir="${release.dir}/script">
-                                    <fileset dir="script"></fileset>
-                                </copy>
                                 <echo>拷贝项目配置文件</echo>
                                 <copy todir="${release.dir}/conf">
                                     <fileset dir="conf" />
-                                </copy>
-                                <echo>拷贝文档</echo>
-                                <copy todir="${release.dir}/doc/04_维护文档">
-                                    <fileset dir="doc/04_维护文档" />
-                                </copy>
-                                <copy todir="${release.dir}/doc/06_使用文档">
-                                    <fileset dir="doc/06_使用文档" />
-                                </copy>
-                                <copy todir="${release.dir}/doc/07_演示文档">
-                                    <fileset dir="doc/07_演示文档" />
                                 </copy>
                             </target>
                         </configuration>

@@ -8,7 +8,7 @@ public class _YearPanel extends __TimePanel {
 	/** serialVersionUID */
 	private static final long serialVersionUID = 6055405583848024179L;
 
-	private final static int YEAR = 40;	// 最多显示往后40年（理论cron最大的年份是2099年）
+	private final static int YEAR = 43;	// 最多显示往后40年（理论cron最大的年份是2099年）
 	
 	protected _YearPanel(String name) {
 		super(name, 4);
