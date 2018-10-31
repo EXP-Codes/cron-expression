@@ -1,5 +1,6 @@
 package exp.cron.ui;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,40 +20,61 @@ import exp.libs.warp.task.cron._Week;
 import exp.libs.warp.ui.SwingUtils;
 import exp.libs.warp.ui.cpt.cbg.CheckBoxGroup;
 
+/**
+ * <PRE>
+ * cron表达式-周域界面
+ * </PRE>
+ * <br/><B>PROJECT : </B> cron-expression
+ * <br/><B>SUPPORT : </B> <a href="http://www.exp-blog.com" target="_blank">www.exp-blog.com</a> 
+ * @version   2017-10-30
+ * @author    EXP: 272629724@qq.com
+ * @since     jdk版本：jdk1.6
+ */
 public class _WeekPanel extends __TimePanel {
 
 	/** serialVersionUID */
 	private static final long serialVersionUID = -1330320169878793721L;
 
+	/** 触发模式按钮：[索引触发(x#y)] */
 	private JRadioButton orderBtn;
 	
+	/** 输入框：星期值 */
 	private JTextField tfWeek;
 	
+	/** 输入框：索引值 */
 	private JTextField tfIndex;
 	
-	private JRadioButton afterBtn;
+	/** 触发模式按钮：[前导值触发(C)] */
+	private JRadioButton leadBtn;
 	
-	private JTextField tfAfter;
+	/** 输入框：前导值 */
+	private JTextField tfLead;
 	
+	/** 触发模式按钮：[周末触发(L)]  （周末即周六） */
 	private JRadioButton lastBtn;
 	
+	/**
+	 * 构造函数
+	 * @param cron cron表达式对象
+	 * @param name 子界面名称
+	 */
 	protected _WeekPanel(Cron cron, String name) {
 		super(cron, name, 1);
 	}
 
 	@Override
 	protected void initComponents() {
+		this.tfLead = new JTextField(5);
+		this.leadBtn = new JRadioButton("前导值触发 (C)");
+		btnGroup.add(leadBtn);
+		setLeadBtnListener();
+		
+		
 		this.tfWeek = new JTextField(5);
 		this.tfIndex = new JTextField(5);
 		this.orderBtn = new JRadioButton("索引触发 (x#y)");
 		btnGroup.add(orderBtn);
 		setOrderBtnListener();
-		
-		
-		this.tfAfter = new JTextField(5);
-		this.afterBtn = new JRadioButton("下一天触发 (C)");
-		btnGroup.add(afterBtn);
-		setAfterBtnListener();
 		
 		
 		this.lastBtn = new JRadioButton("仅周六触发 (L)");
@@ -62,20 +84,13 @@ public class _WeekPanel extends __TimePanel {
 	
 	@Override
 	protected void initTips() {
-		tfFrom.setToolTipText(StrUtils.concat(
-				"取值范围: [", _Week.MIN, ",",  _Week.MAX, "]"));
-		tfTo.setToolTipText(StrUtils.concat(
-				"取值范围: [", _Week.MIN, ",",  _Week.MAX, "]"));
-		tfBegin.setToolTipText(StrUtils.concat(
-				"取值范围: [", _Week.MIN, ",",  _Week.MAX, "]"));
-		tfStep.setToolTipText(StrUtils.concat("取值范围: [", STEP, ",+∞)"));
-		
-		
-		tfWeek.setToolTipText(StrUtils.concat(
-				"取值范围: [", _Week.MIN, ",",  _Week.MAX, "]"));
-		tfIndex.setToolTipText(StrUtils.concat("取值范围: [", STEP, ",+∞)"));
-		tfAfter.setToolTipText(StrUtils.concat(
-				"取值范围: [", _Week.MIN, ",",  _Week.MAX, "]"));
+		setRangeTooltips(tfFrom, _Week.MIN, _Week.MAX);
+		setRangeTooltips(tfTo, _Week.MIN, _Week.MAX);
+		setRangeTooltips(tfBegin, _Week.MIN, _Week.MAX);
+		setRangeTooltips(tfStep, STEP, -1);
+		setRangeTooltips(tfWeek, _Week.MIN, _Week.MAX);
+		setRangeTooltips(tfIndex, STEP, -1);
+		setRangeTooltips(tfLead, _Week.MIN, _Week.MAX);
 	}
 	
 	@Override
@@ -93,43 +108,40 @@ public class _WeekPanel extends __TimePanel {
 	}
 	
 	protected JPanel getEveryPanel() {
-		return SwingUtils.getHFlowPanel(FlowLayout.LEFT, 
-				everyBtn, 
-				new JLabel("（注：星期1=周日、星期2=周一、星期3=周二、星期4=周三、星期5=周四、星期6=周五、星期7=周六）"));
+		JLabel tips = new JLabel("（注：星期1=周日、星期2=周一、星期3=周二、星期4=周三、星期5=周四、星期6=周五、星期7=周六）");
+		tips.setForeground(Color.RED);
+		return SwingUtils.getHFlowPanel(FlowLayout.LEFT, everyBtn, tips);
 	}
 	
 	@Override
 	protected JPanel getRangePanel() {
-		return SwingUtils.getPairsPanel(rangeBtn, 
-				SwingUtils.getHFlowPanel(FlowLayout.LEFT, 
-						new JLabel(StrUtils.concat(" ：在", name, " ")), tfFrom, 
-						new JLabel(StrUtils.concat(" 到", name, " ")), 
-						tfTo, new JLabel(" 之间触发")
-				)
+		return SwingUtils.getHFlowPanel(FlowLayout.LEFT, 
+				SwingUtils.getPairsPanel(rangeBtn, 
+					SwingUtils.getHFlowPanel(FlowLayout.LEFT, 
+							new JLabel(StrUtils.concat(" ：在", name, " ")), tfFrom, 
+							new JLabel(StrUtils.concat(" 到", name, " ")), 
+							tfTo, new JLabel(" 之间触发")
+					)
+				), new JLabel()		// 多一层面板的目的只是对齐组件
 		);
 	}
 	
 	@Override
 	protected JPanel getStepPanel() {
-		return SwingUtils.getPairsPanel(stepBtn, 
-				SwingUtils.getHFlowPanel(FlowLayout.LEFT, 
-						new JLabel(StrUtils.concat(" ：从", name, " ")), tfBegin, 
-						new JLabel(StrUtils.concat(" 开始, 每隔 ")), 
-						tfStep, new JLabel(" 周触发")
-				)
+		return SwingUtils.getHFlowPanel(FlowLayout.LEFT, 
+				SwingUtils.getPairsPanel(stepBtn, 
+					SwingUtils.getHFlowPanel(FlowLayout.LEFT, 
+							new JLabel(StrUtils.concat(" ：从", name, " ")), tfBegin, 
+							new JLabel(StrUtils.concat(" 开始, 每隔 ")), 
+							tfStep, new JLabel(" 周触发")
+					)
+				), new JLabel()		// 多一层面板的目的只是对齐组件
 		);
 	}
 
 	@Override
 	protected JPanel getExtPanel() {
 		return SwingUtils.getVFlowPanel(
-				SwingUtils.getPairsPanel(afterBtn, 
-						SwingUtils.getHFlowPanel(FlowLayout.LEFT, 
-								new JLabel(StrUtils.concat("：在", name, " ")), tfAfter, 
-								new JLabel(" 后的第一天触发")
-						)
-				), 
-				
 				SwingUtils.getPairsPanel(orderBtn, 
 						SwingUtils.getHFlowPanel(FlowLayout.LEFT, 
 								new JLabel(StrUtils.concat("：在当月的第 ")), tfIndex, 
@@ -138,7 +150,21 @@ public class _WeekPanel extends __TimePanel {
 						)
 				), 
 				
+				SwingUtils.getPairsPanel(leadBtn, 
+						SwingUtils.getHFlowPanel(FlowLayout.LEFT, 
+								new JLabel(StrUtils.concat("：在", name, " ")), tfLead, 
+								new JLabel(" 后的第一天触发")
+						)
+				), 
+				
 				SwingUtils.addPanel(lastBtn)
+		);
+	}
+	
+	@Override
+	protected JPanel getSequencePanel() {
+		return SwingUtils.getHFlowPanel(FlowLayout.LEFT, 
+				super.getSequencePanel(), new JLabel()		// 多一层面板的目的只是对齐组件
 		);
 	}
 	
@@ -191,6 +217,22 @@ public class _WeekPanel extends __TimePanel {
 		cron.Week().withSequence(seqs);
 	}
 	
+	private void setLeadBtnListener() {
+		leadBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(StrUtils.isEmpty(tfLead.getText())) {
+					tfLead.setText(String.valueOf(_Week.MIN));
+				}
+				
+				int week = NumUtils.toInt(tfLead.getText(), _Week.MIN);
+				cron.Week().withAfterWeek(week);
+				CronUI.getInstn().updateCron();
+			}
+		});
+	}
+	
 	private void setOrderBtnListener() {
 		orderBtn.addActionListener(new ActionListener() {
 			
@@ -207,22 +249,6 @@ public class _WeekPanel extends __TimePanel {
 				int week = NumUtils.toInt(tfWeek.getText(), _Week.MIN);
 				int index = NumUtils.toInt(tfIndex.getText(), STEP);
 				cron.Week().withOrder(week, index);
-				CronUI.getInstn().updateCron();
-			}
-		});
-	}
-	
-	private void setAfterBtnListener() {
-		afterBtn.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(StrUtils.isEmpty(tfAfter.getText())) {
-					tfAfter.setText(String.valueOf(_Week.MIN));
-				}
-				
-				int week = NumUtils.toInt(tfAfter.getText(), _Week.MIN);
-				cron.Week().withAfterWeek(week);
 				CronUI.getInstn().updateCron();
 			}
 		});

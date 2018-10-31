@@ -19,44 +19,75 @@ import exp.libs.warp.ui.BeautyEyeUtils;
 import exp.libs.warp.ui.SwingUtils;
 import exp.libs.warp.ui.cpt.win.MainWindow;
 
+/**
+ * <PRE>
+ * cron表达式生成器主界面
+ * </PRE>
+ * <br/><B>PROJECT : </B> cron-expression
+ * <br/><B>SUPPORT : </B> <a href="http://www.exp-blog.com" target="_blank">www.exp-blog.com</a> 
+ * @version   2017-10-30
+ * @author    EXP: 272629724@qq.com
+ * @since     jdk版本：jdk1.6
+ */
 public class CronUI extends MainWindow {
 
 	/** serialVersionUID */
 	private static final long serialVersionUID = 1881366271417634383L;
 
+	/** 子面板名称枚举值 */
 	protected final static String SECOND = "秒", MINUTE = "分", HOUR = "时", 
 			DAY = "日期", MONTH = "月份", WEEK = "星期", YEAR = "年份";
 	
+	/** 界面宽度 */
 	private final static int WIDTH = 920;
 	
-	private final static int HEIGHT = 740;
+	/** 界面高度 */
+	private final static int HEIGHT = 710;
 	
+	/** cron表达式对象 */
 	private Cron cron;
 	
+	/** cron表达式显示框 */
 	private JTextField tfExpression;
 	
+	/** cron表达式-秒域-显示框 */
 	private JTextField tfSecond;
 	
+	/** cron表达式-分域-显示框 */
 	private JTextField tfMinute;
 	
+	/** cron表达式-时域-显示框 */
 	private JTextField tfHour;
 	
+	/** cron表达式-天域-显示框 */
 	private JTextField tfDay;
 	
+	/** cron表达式-月域-显示框 */
 	private JTextField tfMonth;
 	
+	/** cron表达式-周域-显示框 */
 	private JTextField tfWeek;
 	
+	/** cron表达式-年域-显示框 */
 	private JTextField tfYear;
 	
+	/** cron表达式复制按钮 */
 	private JButton copyBtn;
 	
+	/** 单例 */
 	private static volatile CronUI instance;
 	
+	/**
+	 * 私有化构造函数
+	 */
 	private CronUI() {
 		super("Cron表达式生成器", WIDTH, HEIGHT);
 	}
 	
+	/**
+	 * 获取单例
+	 * @return
+	 */
 	public static CronUI getInstn() {
 		if(instance == null) {
 			synchronized (CronUI.class) {
@@ -99,8 +130,7 @@ public class CronUI extends MainWindow {
 	@Override
 	protected void setComponentsLayout(JPanel rootPanel) {
 		rootPanel.add(toContralPanel(), BorderLayout.NORTH);
-		rootPanel.add(toExpressionPanel(), BorderLayout.CENTER);
-		rootPanel.add(copyBtn, BorderLayout.SOUTH);
+		rootPanel.add(toExpressionPanel(), BorderLayout.SOUTH);
 	}
 	
 	private JPanel toContralPanel() {
@@ -142,7 +172,7 @@ public class CronUI extends MainWindow {
 			), BorderLayout.SOUTH);
 		}
 		SwingUtils.addBorder(panel, "Expression");
-		return panel;
+		return SwingUtils.getNBorderPanel(copyBtn, panel);
 	}
 	
 	@Override
@@ -175,6 +205,9 @@ public class CronUI extends MainWindow {
 		
 	}
 	
+	/**
+	 * 根据cron表达式的值更新界面每个显示框的内容
+	 */
 	protected void updateCron() {
 		this.tfExpression.setText(cron.toExpression());
 		this.tfSecond.setText(cron.Second().getSubExpression());

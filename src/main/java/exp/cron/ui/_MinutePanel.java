@@ -10,26 +10,39 @@ import exp.libs.warp.task.cron.Cron;
 import exp.libs.warp.task.cron._Minute;
 import exp.libs.warp.ui.cpt.cbg.CheckBoxGroup;
 
+/**
+ * <PRE>
+ * cron表达式-分域界面
+ * </PRE>
+ * <br/><B>PROJECT : </B> cron-expression
+ * <br/><B>SUPPORT : </B> <a href="http://www.exp-blog.com" target="_blank">www.exp-blog.com</a> 
+ * @version   2017-10-30
+ * @author    EXP: 272629724@qq.com
+ * @since     jdk版本：jdk1.6
+ */
 public class _MinutePanel extends __TimePanel {
 
 	/** serialVersionUID */
 	private static final long serialVersionUID = -2246097300347014723L;
 
+	/** [分]上限值，用于生成[定点触发(a,b,c...)]模式的候选值列表 */
 	private final static int MINUTE = 60;
 	
+	/**
+	 * 构造函数
+	 * @param cron cron表达式对象
+	 * @param name 子界面名称
+	 */
 	protected _MinutePanel(Cron cron, String name) {
 		super(cron, name, 6);
 	}
 	
 	@Override
 	protected void initTips() {
-		tfFrom.setToolTipText(StrUtils.concat(
-				"取值范围: [", _Minute.MIN, ",",  _Minute.MAX, "]"));
-		tfTo.setToolTipText(StrUtils.concat(
-				"取值范围: [", _Minute.MIN, ",",  _Minute.MAX, "]"));
-		tfBegin.setToolTipText(StrUtils.concat(
-				"取值范围: [", _Minute.MIN, ",",  _Minute.MAX, "]"));
-		tfStep.setToolTipText(StrUtils.concat("取值范围: [", STEP, ",+∞)"));
+		setRangeTooltips(tfFrom, _Minute.MIN, _Minute.MAX);
+		setRangeTooltips(tfTo, _Minute.MIN, _Minute.MAX);
+		setRangeTooltips(tfBegin, _Minute.MIN, _Minute.MAX);
+		setRangeTooltips(tfStep, STEP, -1);
 	}
 
 	@Override

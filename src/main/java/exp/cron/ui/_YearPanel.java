@@ -11,26 +11,43 @@ import exp.libs.warp.task.cron.Cron;
 import exp.libs.warp.task.cron._Year;
 import exp.libs.warp.ui.cpt.cbg.CheckBoxGroup;
 
+/**
+ * <PRE>
+ * cron表达式-年域界面
+ * </PRE>
+ * <br/><B>PROJECT : </B> cron-expression
+ * <br/><B>SUPPORT : </B> <a href="http://www.exp-blog.com" target="_blank">www.exp-blog.com</a> 
+ * @version   2017-10-30
+ * @author    EXP: 272629724@qq.com
+ * @since     jdk版本：jdk1.6
+ */
 public class _YearPanel extends __TimePanel {
 
 	/** serialVersionUID */
 	private static final long serialVersionUID = 6055405583848024179L;
 
-	private final static int YEAR = 76;	// 最多显示往后76年（理论cron最大的年份是2099年）
+	/**
+	 * [年]上限值，用于生成[定点触发(a,b,c...)]模式的候选值列表.
+	 * ----------------------------------------------
+	 * 受限界面显示范围，最多显示从近年开始往后的76年（理论cron最大的年份是2099年）
+	 */
+	private final static int YEAR = 76;
 	
+	/**
+	 * 构造函数
+	 * @param cron cron表达式对象
+	 * @param name 子界面名称
+	 */
 	protected _YearPanel(Cron cron, String name) {
 		super(cron, name, 7);
 	}
 	
 	@Override
 	protected void initTips() {
-		tfFrom.setToolTipText(StrUtils.concat(
-				"取值范围: [", _Year.MIN, ",",  _Year.MAX, "]"));
-		tfTo.setToolTipText(StrUtils.concat(
-				"取值范围: [", _Year.MIN, ",",  _Year.MAX, "]"));
-		tfBegin.setToolTipText(StrUtils.concat(
-				"取值范围: [", _Year.MIN, ",",  _Year.MAX, "]"));
-		tfStep.setToolTipText(StrUtils.concat("取值范围: [", STEP, ",+∞)"));
+		setRangeTooltips(tfFrom, _Year.MIN, _Year.MAX);
+		setRangeTooltips(tfTo, _Year.MIN, _Year.MAX);
+		setRangeTooltips(tfBegin, _Year.MIN, _Year.MAX);
+		setRangeTooltips(tfStep, STEP, -1);
 	}
 
 	@Override

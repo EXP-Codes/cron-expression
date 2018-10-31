@@ -18,35 +18,57 @@ import exp.libs.warp.task.cron._Day;
 import exp.libs.warp.ui.SwingUtils;
 import exp.libs.warp.ui.cpt.cbg.CheckBoxGroup;
 
+/**
+ * <PRE>
+ * cron表达式-天域界面
+ * </PRE>
+ * <br/><B>PROJECT : </B> cron-expression
+ * <br/><B>SUPPORT : </B> <a href="http://www.exp-blog.com" target="_blank">www.exp-blog.com</a> 
+ * @version   2017-10-30
+ * @author    EXP: 272629724@qq.com
+ * @since     jdk版本：jdk1.6
+ */
 public class _DayPanel extends __TimePanel {
 
 	/** serialVersionUID */
 	private static final long serialVersionUID = -9189511336082200258L;
 	
+	/** [天]上限值，用于生成[定点触发(a,b,c...)]模式的候选值列表 */
 	private final static int DAY = 31;
 	
-	private JRadioButton afterBtn;
+	/** 触发模式按钮：[前导值触发(C)] */
+	private JRadioButton leadBtn;
 	
-	private JTextField tfAfter;
+	/** 输入框：前导值 */
+	private JTextField tfLead;
 	
+	/** 触发模式按钮：[工作日触发(W)] */
 	private JRadioButton workBtn;
 	
+	/** 输入框：工作日 */
 	private JTextField tfWork;
 	
+	/** 触发模式按钮：[月末触发(L)] */
 	private JRadioButton lastBtn;
 	
+	/** 触发模式按钮：[月末工作日触发(L)] */
 	private JRadioButton lastWorkBtn;
 	
+	/**
+	 * 构造函数
+	 * @param cron cron表达式对象
+	 * @param name 子界面名称
+	 */
 	protected _DayPanel(Cron cron, String name) {
 		super(cron, name, 4);
 	}
 	
 	@Override
 	protected void initComponents() {
-		this.tfAfter = new JTextField(5);
-		this.afterBtn = new JRadioButton("下一天触发 (C)");
-		btnGroup.add(afterBtn);
-		setAfterBtnListener();
+		this.tfLead = new JTextField(5);
+		this.leadBtn = new JRadioButton("前导值触发 (C)");
+		btnGroup.add(leadBtn);
+		setLeadBtnListener();
 		
 		
 		this.tfWork = new JTextField(5);
@@ -67,18 +89,12 @@ public class _DayPanel extends __TimePanel {
 	
 	@Override
 	protected void initTips() {
-		tfFrom.setToolTipText(StrUtils.concat(
-				"取值范围: [", _Day.MIN, ",",  _Day.MAX, "]"));
-		tfTo.setToolTipText(StrUtils.concat(
-				"取值范围: [", _Day.MIN, ",",  _Day.MAX, "]"));
-		tfBegin.setToolTipText(StrUtils.concat(
-				"取值范围: [", _Day.MIN, ",",  _Day.MAX, "]"));
-		tfStep.setToolTipText(StrUtils.concat("取值范围: [", STEP, ",+∞)"));
-		
-		tfWork.setToolTipText(StrUtils.concat(
-				"取值范围: [", _Day.MIN, ",",  _Day.MAX, "]"));
-		tfAfter.setToolTipText(StrUtils.concat(
-				"取值范围: [", _Day.MIN, ",",  _Day.MAX, "]"));
+		setRangeTooltips(tfFrom, _Day.MIN, _Day.MAX);
+		setRangeTooltips(tfTo, _Day.MIN, _Day.MAX);
+		setRangeTooltips(tfBegin, _Day.MIN, _Day.MAX);
+		setRangeTooltips(tfStep, STEP, -1);
+		setRangeTooltips(tfWork, _Day.MIN, _Day.MAX);
+		setRangeTooltips(tfLead, _Day.MIN, _Day.MAX);
 	}
 
 	@Override
@@ -97,6 +113,20 @@ public class _DayPanel extends __TimePanel {
 	}
 	
 	@Override
+	protected JPanel getRangePanel() {
+		return SwingUtils.getHFlowPanel(FlowLayout.LEFT, 
+				super.getRangePanel(), new JLabel()		// 多一层面板的目的只是对齐组件
+		);
+	}
+	
+	@Override
+	protected JPanel getStepPanel() {
+		return SwingUtils.getHFlowPanel(FlowLayout.LEFT, 
+				super.getStepPanel(), new JLabel()		// 多一层面板的目的只是对齐组件
+		);
+	}
+	
+	@Override
 	protected JPanel getExtPanel() {
 		return SwingUtils.getVFlowPanel(
 				
@@ -107,12 +137,19 @@ public class _DayPanel extends __TimePanel {
 					)
 				), 
 					
-				SwingUtils.getPairsPanel(afterBtn, 
+				SwingUtils.getPairsPanel(leadBtn, 
 					SwingUtils.getHFlowPanel(FlowLayout.LEFT, 
-							new JLabel("：在当月 "), tfAfter, 
+							new JLabel("：在当月 "), tfLead, 
 							new JLabel(StrUtils.concat(" ", name, "后的第一天触发"))
 					)
 				)
+		);
+	}
+	
+	@Override
+	protected JPanel getSequencePanel() {
+		return SwingUtils.getHFlowPanel(FlowLayout.LEFT, 
+				super.getSequencePanel(), new JLabel()		// 多一层面板的目的只是对齐组件
 		);
 	}
 	
@@ -164,16 +201,16 @@ public class _DayPanel extends __TimePanel {
 		cron.Day().withSequence(seqs);
 	}
 	
-	private void setAfterBtnListener() {
-		afterBtn.addActionListener(new ActionListener() {
+	private void setLeadBtnListener() {
+		leadBtn.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(StrUtils.isEmpty(tfAfter.getText())) {
-					tfAfter.setText(String.valueOf(_Day.MIN));
+				if(StrUtils.isEmpty(tfLead.getText())) {
+					tfLead.setText(String.valueOf(_Day.MIN));
 				}
 				
-				int day = NumUtils.toInt(tfAfter.getText(), _Day.MIN);
+				int day = NumUtils.toInt(tfLead.getText(), _Day.MIN);
 				cron.Day().withAfterDay(day);
 				CronUI.getInstn().updateCron();
 			}

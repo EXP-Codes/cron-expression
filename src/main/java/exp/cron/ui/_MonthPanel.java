@@ -10,24 +10,36 @@ import exp.libs.warp.task.cron.Cron;
 import exp.libs.warp.task.cron._Month;
 import exp.libs.warp.ui.cpt.cbg.CheckBoxGroup;
 
+/**
+ * <PRE>
+ * cron表达式-月域界面
+ * </PRE>
+ * <br/><B>PROJECT : </B> cron-expression
+ * <br/><B>SUPPORT : </B> <a href="http://www.exp-blog.com" target="_blank">www.exp-blog.com</a> 
+ * @version   2017-10-30
+ * @author    EXP: 272629724@qq.com
+ * @since     jdk版本：jdk1.6
+ */
 public class _MonthPanel extends __TimePanel {
 
 	/** serialVersionUID */
 	private static final long serialVersionUID = -7775377611552787648L;
 	
+	/**
+	 * 构造函数
+	 * @param cron cron表达式对象
+	 * @param name 子界面名称
+	 */
 	protected _MonthPanel(Cron cron, String name) {
 		super(cron, name, 3);
 	}
 	
 	@Override
 	protected void initTips() {
-		tfFrom.setToolTipText(StrUtils.concat(
-				"取值范围: [", _Month.MIN, ",",  _Month.MAX, "]"));
-		tfTo.setToolTipText(StrUtils.concat(
-				"取值范围: [", _Month.MIN, ",",  _Month.MAX, "]"));
-		tfBegin.setToolTipText(StrUtils.concat(
-				"取值范围: [", _Month.MIN, ",",  _Month.MAX, "]"));
-		tfStep.setToolTipText(StrUtils.concat("取值范围: [", STEP, ",+∞)"));
+		setRangeTooltips(tfFrom, _Month.MIN, _Month.MAX);
+		setRangeTooltips(tfTo, _Month.MIN, _Month.MAX);
+		setRangeTooltips(tfBegin, _Month.MIN, _Month.MAX);
+		setRangeTooltips(tfStep, STEP, -1);
 	}
 
 	@Override
