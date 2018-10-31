@@ -2,6 +2,43 @@
 
 > <b>cron&nbsp;表达式在线生成器&nbsp;:&nbsp;</b>[[ Cron-Page ]](https://lyy289065406.github.io/cron-expression/)
 
+------
+
+
+## 运行环境
+
+　![](https://img.shields.io/badge/Platform-Windows%20x64-brightgreen.svg)  ![](https://img.shields.io/badge/JDK-1.6%2B-brightgreen.svg)
+
+
+## 软件介绍
+
+　抛弃艰涩的语法规则，通过界面配置cron表达式。
+
+　同时提供CS版和BS版的配置界面（推荐使用CS版，功能更全面）
+
+
+## 运行界面展示
+
+### ※ CS版界面
+
+　![秒域]()
+　![分域]()
+　![时域]()
+　![天域]()
+　![月域]()
+　![周域]()
+　![年域]()
+　![复制]()
+
+### ※ BS版界面
+
+　![秒域]()
+　![分域]()
+　![时域]()
+　![天域]()
+　![月域]()
+　![周域]()
+　![年域]()
 
 ## 版权声明
 

@@ -182,7 +182,7 @@ public class CronUI extends MainWindow {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				OSUtils.copyToClipboard(tfExpression.getText());
-				SwingUtils.info("复制cron到剪贴板成功");
+				SwingUtils.info("复制cron到剪贴板成功:\r\n", tfExpression.getText());
 			}
 		});
 	}

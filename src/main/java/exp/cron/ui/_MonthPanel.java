@@ -6,6 +6,7 @@ import javax.swing.JCheckBox;
 
 import exp.libs.utils.num.NumUtils;
 import exp.libs.utils.other.StrUtils;
+import exp.libs.utils.verify.RegexUtils;
 import exp.libs.warp.task.cron.Cron;
 import exp.libs.warp.task.cron._Month;
 import exp.libs.warp.ui.cpt.cbg.CheckBoxGroup;
@@ -101,7 +102,8 @@ public class _MonthPanel extends __TimePanel {
 		int[] seqs = new int[selecteds.size()];
 		for(int i = 0; i < seqs.length; i++) {
 			JCheckBox selected = selecteds.get(i);
-			int val = NumUtils.toInt(selected.getText(), -1);
+			int val = NumUtils.toInt(
+					RegexUtils.findFirst(selected.getText(), "(\\d)"), -1);
 			if(val >= 0) {
 				seqs[i] = val;
 			}
