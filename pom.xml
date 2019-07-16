@@ -6,7 +6,7 @@
     <!--项目基本信息(必填)-->
     <groupId>exp.cron</groupId>
     <artifactId>cron-expression</artifactId>
-    <version>1.0</version>
+    <version>1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>cron表达式配置工具</name>
@@ -38,8 +38,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <release.dir>${project.build.directory}/${project.artifactId}-${project.version}</release.dir>
-        <jdk.version>1.6</jdk.version>
-        <explibs.version>1.1-SNAPSHOT</explibs.version>
+        <jdk.version>1.8</jdk.version>
+        <explibs.version>1.2-SNAPSHOT</explibs.version>
         <mrp.plugin.version>1.0</mrp.plugin.version>
     </properties>
 
@@ -103,7 +103,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
-                <version>2.3.2</version>
                 <configuration>
                     <!-- 项目的SVN基线目录（需保证目录已存在） -->
                     <tagBase>https://github.com/lyy289065406/cron-expression/tags</tagBase>
@@ -134,7 +133,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.7</version>
                 <executions>
                     <execution>
                         <id>ant-build</id>
@@ -217,12 +215,17 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9.1</version>
                 <configuration>
                     <aggregate>true</aggregate>
                     <charset>UTF-8</charset>
                     <encoding>UTF-8</encoding>
                     <docencoding>UTF-8</docencoding>
+                    
+                    <!-- 从JDK8开始, Javadoc中添加了doclint, 目的是旨在获得符合W3C HTML 4.01标准规范的HTML文档 -->
+                    <!-- 简而言之Javadoc不允许出现html相关的元素, 若旧注释含有这些元素又不想修改, 只能关闭doclint -->
+                    <additionalOptions>
+                        <additionalOption>-Xdoclint:none</additionalOption>
+                    </additionalOptions>
                 </configuration>
                 <executions>
                     <execution>

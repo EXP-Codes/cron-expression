@@ -159,7 +159,7 @@ abstract class __TimePanel extends JPanel {
 	
 	/**
 	 * 生成 [每触发(*)] 模式按钮的面板
-	 * @return
+	 * @return 面板对象
 	 */
 	protected JPanel getEveryPanel() {
 		return SwingUtils.addPanel(everyBtn);
@@ -167,7 +167,7 @@ abstract class __TimePanel extends JPanel {
 	
 	/**
 	 * 生成 [范围触发(x-y)] 模式按钮的面板
-	 * @return
+	 * @return 面板对象
 	 */
 	protected JPanel getRangePanel() {
 		return SwingUtils.getPairsPanel(rangeBtn, 
@@ -181,7 +181,7 @@ abstract class __TimePanel extends JPanel {
 	
 	/**
 	 * 生成 [周期触发(x/y)] 模式按钮的面板
-	 * @return
+	 * @return 面板对象
 	 */
 	protected JPanel getStepPanel() {
 		return SwingUtils.getPairsPanel(stepBtn, 
@@ -196,7 +196,7 @@ abstract class __TimePanel extends JPanel {
 	/**
 	 * 扩展面板（供子类使用）
 	 *  某些时间域存在多种特殊的触发模式，此面板用于扩展
-	 * @return
+	 * @return 面板对象
 	 */
 	protected JPanel getExtPanel() {
 		return new JPanel();
@@ -204,7 +204,7 @@ abstract class __TimePanel extends JPanel {
 	
 	/**
 	 * 生成 [定点触发(a,b,c...)] 模式按钮的面板
-	 * @return
+	 * @return 面板对象
 	 */
 	protected JPanel getSequencePanel() {
 		return SwingUtils.getPairsPanel(seqBtn, 
@@ -213,7 +213,7 @@ abstract class __TimePanel extends JPanel {
 	
 	/**
 	 * 仅[定点触发(a,b,c...)] 模式使用：根据不同的时间域生成对应的复选框列表
-	 * @return
+	 * @return 复选框对象
 	 */
 	protected abstract CheckBoxGroup<String> initSequence();
 	

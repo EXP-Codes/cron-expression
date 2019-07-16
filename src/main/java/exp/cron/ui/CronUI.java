@@ -86,7 +86,7 @@ public class CronUI extends MainWindow {
 	
 	/**
 	 * 获取单例
-	 * @return
+	 * @return 单例
 	 */
 	public static CronUI getInstn() {
 		if(instance == null) {
